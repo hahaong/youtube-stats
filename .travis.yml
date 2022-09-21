@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 16
+
+services:
+  - docker
+
+before_install: # predeployment / staging  -f: create a file, ask this docker build to refer to Dockerfile.dev, last `.` is to create it under current directory
+  - docker build -t hahaong/youtubestatp5 -f Dockerfile.dev .
+#build the image, push to containter to deploy
+
+script: # deployment / staging
+  - docker run hahaong/youtubestatp5 npm run test -- -coverage
